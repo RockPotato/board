@@ -1,0 +1,65 @@
+-- paging 처리를 위한 sql 인자 2개
+-- page당 게시글 수 : 10건
+-- page : 1page
+select *
+from 
+    ( select a.*, rownum rn
+    from
+        (select users.*
+        from users
+        order by userid) a ) a
+where rn between 21 and 30; -- 3page에 해당하는 데이터        
+-----------------------------------------
+select *
+from 
+    ( select a.*, rownum rn
+    from
+        (select users.*
+        from users
+        order by userid) a ) a
+where rn between (#{page}-1) * #{pageSize}+1 and #{page} * #{pageSize};
+
+
+-- page 번호, page당 게시글 수 (10)
+-- x page : (page 번호 * page 당 게시글 수)-(page 당 게시글 수 -1) ~ (page 번호 * page 당 게시글 수)
+
+-- (page 번호 -1) * page 당 게시글 수 +1
+
+-- 1pgae 1~10
+-- 2page 11~20
+-- 3page 21~30
+        
+        
+where rn between 11 and 20; -- 2page에 해당하는 데이터
+-- rownum을 where 절에서 사용할 때는 처음 시작부터 읽어야 정상 동작을 한다.
+-- ex : ~작을 때( < )
+
+where rownum between 1 and 10; -- 1page에 해당하는 데이터
+
+select count(*)
+from users;
+
+select *
+from lprod;
+
+select count(*)
+from lprod;
+
+
+select *
+from 
+    ( select a.*, rownum rn
+    from
+        (select lprod.*
+        from lprod
+        order by lprod_id) a ) a
+where rn between 11 and 20; -- 3page에 해당하는 데이터
+
+select *
+from 
+    ( select a.*, rownum rn
+    from
+        (select lprod.*
+        from lprod
+        order by lprod_id) a ) a
+where rn between (#{page}-1) * #{pageSize}+1 and #{page} * #{pageSize};
