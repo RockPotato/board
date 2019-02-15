@@ -14,7 +14,9 @@
 			<ul class="nav nav-sidebar">
 				<c:if test="${bcList.size()>0}">
 					<c:forEach items="${bcList}" var="bcVo">
-						<li><a href="<%=request.getContextPath()%>/lprodList">${bcVo.board_nm}</a></li>
+						<c:if test="${bcVo.board_use=='y'}">
+							<li><a href="${pageContext.request.contextPath}/boarddetail?board_code=${bcVo.board_code}">${bcVo.board_nm}</a></li>
+						</c:if>
 					</c:forEach>
 				</c:if>
 			</ul>

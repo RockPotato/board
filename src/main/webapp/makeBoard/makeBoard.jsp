@@ -36,7 +36,7 @@
 	<c:if test="${bcList.size()>0}">
 		<c:forEach items="${bcList}" var="bcVo">
 			<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-				<form action="<%=request.getContextPath()%>/boardclass" method="post" id="updBoardFrm">
+				<form action="${contextPath.request.contextPath}/boardclass" method="post" id="updBoardFrm">
 				<input type="hidden" id="updBoardCode" name="updBoardCode" value="${bcVo.board_code}">
 					<label>게시판 이름</label> <input type="text" id="updBoardNm"
 						name="updBoardNm" value="${bcVo.board_nm }" /> 

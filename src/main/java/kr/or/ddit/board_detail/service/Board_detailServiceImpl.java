@@ -1,6 +1,8 @@
 package kr.or.ddit.board_detail.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -10,6 +12,7 @@ import kr.or.ddit.board_detail.dao.Board_detailDaoImpl;
 import kr.or.ddit.board_detail.dao.IBoard_detailDao;
 import kr.or.ddit.board_detail.model.Board_detailVO;
 import kr.or.ddit.db.mybatis.MybatisSqlSessionFactory;
+import kr.or.ddit.util.model.PageVO;
 
 public class Board_detailServiceImpl implements IBoard_detailService {
 
@@ -76,6 +79,27 @@ public class Board_detailServiceImpl implements IBoard_detailService {
 		openSession.commit();
 		openSession.close();
 		return cnt;
+	}
+
+	@Override
+	public List<Board_detailVO> selectBdByBc(String board_code) {
+		SqlSessionFactory sqlSessionFactory = MybatisSqlSessionFactory.getSqlSessionFactory();
+		SqlSession openSession = sqlSessionFactory.openSession();
+		List<Board_detailVO> list =dao.selectBdByBc(openSession, board_code);
+		openSession.commit();
+		openSession.close();
+		return list;
+	}
+
+	@Override
+	public Map<String, Object> selectBdPagingList(PageVO pageVo) {
+		SqlSessionFactory sqlSessionFactory = MybatisSqlSessionFactory.getSqlSessionFactory();
+		SqlSession openSession = sqlSessionFactory.openSession();
+		Map<String,Object> resultMap = new HashMap<String,Object>();
+		resultMap.put("bdList", dao.selectBdPagingList(openSession,pageVo));
+		resultMap.put("getBdCnt", dao.getBdCnt(openSession));
+		openSession.close();
+		return resultMap;
 	}
 
 }

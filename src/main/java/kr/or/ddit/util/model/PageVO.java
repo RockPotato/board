@@ -3,6 +3,13 @@ package kr.or.ddit.util.model;
 public class PageVO {
 		private int page; // 페이지번호
 		private int pageSize; // 페이지당 사이즈
+		private String board_code;
+		public String getBoard_code() {
+			return board_code;
+		}
+		public void setBoard_code(String board_code) {
+			this.board_code = board_code;
+		}
 		public PageVO() {
 			
 		}
