@@ -11,13 +11,34 @@
 <meta name="author" content="">
 <link rel="icon" href="../../favicon.ico">
 
-<title>Dashboard Template for Bootstrap</title>
+<title>Lee's board Main</title>
+
+<!-- Bootstrap core CSS -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
+<!-- Custom styles for this template -->
+<link href="<%=request.getContextPath()%>/css/dashboard.css"
+	rel="stylesheet">
 
 </head>
 
 <body>
-haha
+	<%@ include file="header.jsp"%>
+	<%-- <%@ include file="left.jsp" %> --%>
+	<jsp:include page="left.jsp"></jsp:include>
+	<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+		<h1 class="page-header">Dashboard</h1>
+		main.jsp
+	</div>
+
+	<!-- Bootstrap core JavaScript
+    ================================================== -->
+	<!-- Placed at the end of the document so the pages load faster -->
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+	<%-- 순서 중요 --%>
+	<script
+		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 </body>
 </html>

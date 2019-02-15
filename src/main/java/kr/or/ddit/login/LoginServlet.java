@@ -1,6 +1,7 @@
 package kr.or.ddit.login;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,6 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import kr.or.ddit.board_class.model.Board_classVO;
+import kr.or.ddit.board_class.service.Board_classServiceImpl;
+import kr.or.ddit.board_class.service.IBoard_classService;
 import kr.or.ddit.encrypt.kisa.sha256.KISA_SHA256;
 import kr.or.ddit.user.model.UserVO;
 import kr.or.ddit.user.service.IUserService;
@@ -75,7 +79,9 @@ public class LoginServlet extends HttpServlet {
 			// 페이지나 servlet에서 사용할 수 있다.
 			HttpSession session = request.getSession();
 			session.setAttribute("userVo", userVo);
-
+			IBoard_classService service = new Board_classServiceImpl();
+			List<Board_classVO> bcList = service.getAllBc();
+			session.setAttribute("bcList", bcList);
 			// request객체를 이용하여 dispatcher 객체를 얻고 main.jsp로 forward
 			RequestDispatcher rd = request.getRequestDispatcher("main.jsp");
 			rd.forward(request, response);

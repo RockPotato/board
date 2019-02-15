@@ -41,22 +41,21 @@
 	<div class="limiter">
 		<div class="container-login100">
 			<div class="wrap-login100 p-l-85 p-r-85 p-t-55 p-b-55">
-				<form class="login100-form validate-form flex-sb flex-w" method="post" 
-				action="<%=request.getContextPath()%>/login" id="frm">
-				<span class="login100-form-title p-b-32"> Lee's Board </span>
-					 <span
+				<form class="login100-form validate-form flex-sb flex-w"
+					method="post" action="<%=request.getContextPath()%>/login" id="frm">
+					<span class="login100-form-title p-b-32"> Lee's Board </span> <span
 						class="txt1 p-b-11"> UserID </span>
 					<div class="wrap-input100 validate-input m-b-36"
 						data-validate="UserID is required">
-						<input class="input100" type="text" name="userId" id="userId"> <span
-							class="focus-input100"></span>
+						<input class="input100" type="text" name="userId" id="userId">
+						<span class="focus-input100"></span>
 					</div>
 					<span class="txt1 p-b-11"> Password </span>
 					<div class="wrap-input100 validate-input m-b-12"
 						data-validate="Password is required">
 						<span class="btn-show-pass"> <i class="fa fa-eye"></i>
-						</span> <input class="input100" type="password" name="password" id="inputPassword"> <span
-							class="focus-input100"></span>
+						</span> <input class="input100" type="password" name="password"
+							id="inputPassword"> <span class="focus-input100"></span>
 					</div>
 					<div class="flex-sb-m w-full p-b-48">
 						<div class="contact100-form-checkbox">
@@ -78,6 +77,8 @@
 	<div id="dropDownSelect1"></div>
 
 	<script src="/Login_v14/vendor/jquery/jquery-3.2.1.min.js"></script>
+	<script src="<%=request.getContextPath()%>/js/cookieUtil.js"></script>
+	<script src="<%=request.getContextPath()%>/js/js.cookie.js"></script>
 
 	<script src="/Login_v14/vendor/animsition/js/animsition.min.js"></script>
 
@@ -96,16 +97,34 @@
 	<script async
 		src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
 	<script>
-		 window.dataLayer = window.dataLayer || [];
+		$(document).ready(function() {
+			if (Cookies.get("userId")) {
+				$("#userId").val(Cookies.get("userId"));
+				$("#ckb1").prop("checked", true);
+			}
+			;
+		});
+		window.dataLayer = window.dataLayer || [];
 		function gtag() {
 			dataLayer.push(arguments);
 			console.log(arguments);
 		}
 		gtag('js', new Date());
 		gtag('config', 'UA-23581568-13');
-		$("#signBtn").on("click",function(){
-			gtag('userId',$('#userId').val());
-			gtag('password',$("#inputPassword").val());
+		$("#signBtn").on("click", function() {
+			gtag('userId', $('#userId').val());
+			gtag('password', $("#inputPassword").val());
+			if ($("#ckb1").prop("checked")) {
+				Cookies.set("userId", $("#userId").val(), {
+					expires : 30
+				});
+				Cookies.set("rememberme", "y", {
+					expires : 30
+				});
+			} else {
+				Cookies.remove("userId");
+				Cookies.remove("rememberme");
+			}
 		})
 	</script>
 </body>
