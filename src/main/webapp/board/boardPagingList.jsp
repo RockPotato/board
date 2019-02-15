@@ -45,7 +45,7 @@
 					</c:forEach>
 				</tbody>
 			</table>
-
+			
 			<c:set var="lastPage"
 				value="${Integer(bdCnt / pageSize + (bdCnt % pageSize > 0 ? 1 : 0))}" />
 
@@ -59,8 +59,21 @@
 						</c:when>
 						<c:otherwise>
 							<li><a
-								href="${pageContext.servletContext.contextPath }/boarddetail"
+								href="${pageContext.servletContext.contextPath }/boarddetail?board_code=${board_code}"
 								aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
+							</a></li>
+						</c:otherwise>
+					</c:choose>
+					<c:choose>
+						<c:when test="${page == 1 }">
+							<li class="disabled"><a aria-label="Previous"> <span
+									aria-hidden="true">&lt;</span>
+							</a></li>
+						</c:when>
+						<c:otherwise>
+							<li><a
+								href="${pageContext.servletContext.contextPath }/boarddetail?page=${page-1}&board_code=${board_code}"
+								aria-label="Previous"> <span aria-hidden="true">&lt;</span>
 							</a></li>
 						</c:otherwise>
 					</c:choose>
@@ -72,7 +85,7 @@
 						</c:if>
 
 						<li class="${active }"><a
-							href="${pageContext.servletContext.contextPath }/boarddetail?page=${i}">${i}</a>
+							href="${pageContext.servletContext.contextPath }/boarddetail?board_code=${board_code}&page=${i}">${i}</a>
 						</li>
 					</c:forEach>
 
@@ -84,7 +97,21 @@
 						</c:when>
 						<c:otherwise>
 							<li><a
-								href="${pageContext.servletContext.contextPath }/boarddetail?page=
+								href="${pageContext.servletContext.contextPath }/boarddetail?board_code=${board_code}&page=
+												${page+1}"
+								aria-label="Next"> <span aria-hidden="true">&gt;</span>
+							</a></li>
+						</c:otherwise>
+					</c:choose>
+					<c:choose>
+						<c:when test="${page ==lastPage}">
+							<li class="disabled"><a aria-label="Next"> <span
+									aria-hidden="true">&raquo;</span>
+							</a></li>
+						</c:when>
+						<c:otherwise>
+							<li><a
+								href="${pageContext.servletContext.contextPath }/boarddetail?board_code=${board_code}&page=
 												${lastPage}"
 								aria-label="Next"> <span aria-hidden="true">&raquo;</span>
 							</a></li>

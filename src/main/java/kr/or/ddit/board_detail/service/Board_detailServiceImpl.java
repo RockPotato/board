@@ -42,10 +42,10 @@ public class Board_detailServiceImpl implements IBoard_detailService {
 	}
 
 	@Override
-	public int getBdCnt() {
+	public int getBdCnt(String board_code) {
 		SqlSessionFactory sqlSessionFactory = MybatisSqlSessionFactory.getSqlSessionFactory();
 		SqlSession openSession = sqlSessionFactory.openSession();
-		int cnt = dao.getBdCnt(openSession);
+		int cnt = dao.getBdCnt(openSession,board_code);
 		openSession.commit();
 		openSession.close();
 		return cnt;
@@ -92,12 +92,12 @@ public class Board_detailServiceImpl implements IBoard_detailService {
 	}
 
 	@Override
-	public Map<String, Object> selectBdPagingList(PageVO pageVo) {
+	public Map<String, Object> selectBdPagingList(PageVO pageVo,String board_code) {
 		SqlSessionFactory sqlSessionFactory = MybatisSqlSessionFactory.getSqlSessionFactory();
 		SqlSession openSession = sqlSessionFactory.openSession();
 		Map<String,Object> resultMap = new HashMap<String,Object>();
 		resultMap.put("bdList", dao.selectBdPagingList(openSession,pageVo));
-		resultMap.put("getBdCnt", dao.getBdCnt(openSession));
+		resultMap.put("getBdCnt", dao.getBdCnt(openSession,board_code));
 		openSession.close();
 		return resultMap;
 	}

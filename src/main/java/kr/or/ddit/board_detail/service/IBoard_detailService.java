@@ -9,9 +9,9 @@ import kr.or.ddit.util.model.PageVO;
 public interface IBoard_detailService {
 	List<Board_detailVO> getAllBd();
 	public Board_detailVO selectBd(String board_num);
-	Map<String,Object> selectBdPagingList(PageVO pageVo);
+	Map<String,Object> selectBdPagingList(PageVO pageVo,String board_code);
 	public List<Board_detailVO> selectBdByBc(String board_code);
-	int getBdCnt();
+	int getBdCnt(String board_code);
 	int insertBd(Board_detailVO board_detailVo);
 	int updateBd(Board_detailVO board_detailVo);
 	int getBdMax();

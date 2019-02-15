@@ -11,7 +11,7 @@ public interface IBoard_detailDao {
 	List<Board_detailVO> getAllBd(SqlSession openSession);
 	public Board_detailVO selectBd(SqlSession openSession,String board_num);
 	public List<Board_detailVO> selectBdByBc(SqlSession openSession,String board_code);
-	int getBdCnt(SqlSession openSession);
+	int getBdCnt(SqlSession openSession,String board_code);
 	int insertBd(SqlSession openSession,Board_detailVO board_detailVo);
 	int updateBd(SqlSession openSession,Board_detailVO board_detailVo);
 	int getBdMax(SqlSession openSession);

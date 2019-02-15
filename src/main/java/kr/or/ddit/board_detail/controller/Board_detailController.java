@@ -24,8 +24,6 @@ public class Board_detailController extends HttpServlet {
 			throws ServletException, IOException {
 		String board_code = request.getParameter("board_code");
 		IBoard_detailService service = new Board_detailServiceImpl();
-		List<Board_detailVO> selectBdByBc = service.selectBdByBc(board_code);
-		request.setAttribute("bdList", selectBdByBc);
 
 		// page, pageSize에 해당하는 파라미터 받기 ==> pageVo
 		// 단 파라미터가 없을 경우 page : 1, pageSize : 10;
@@ -39,11 +37,14 @@ public class Board_detailController extends HttpServlet {
 		PageVO pageVo = new PageVO(page, pageSize);
 		pageVo.setBoard_code(board_code);
 		// userService 객체를 이용 userPageingList 조회
-		Map<String, Object> resultMap = service.selectBdPagingList(pageVo);
-		List<UserVO> bdList = (List<UserVO>) resultMap.get("bdList");
+		Map<String, Object> resultMap = service.selectBdPagingList(pageVo,board_code);
+		System.out.println(resultMap.size());
+		List<Board_detailVO> bdList = (List<Board_detailVO>) resultMap.get("bdList");
+		System.out.println(bdList.size());
 		int bdCnt = (Integer) resultMap.get("getBdCnt");
 		// request 객체에 조호된 결과를 속성으로 설정
-		request.setAttribute("bdpageList", bdList);
+		request.setAttribute("board_code", board_code);
+		request.setAttribute("bdList", bdList);
 		request.setAttribute("bdCnt", bdCnt);
 		request.setAttribute("pageSize", pageSize);
 		request.setAttribute("page", page);

@@ -22,8 +22,8 @@ public class Board_detailDaoImpl implements IBoard_detailDao {
 	}
 
 	@Override
-	public int getBdCnt(SqlSession openSession) {
-		int cnt = openSession.selectOne("bd.getBdCnt");
+	public int getBdCnt(SqlSession openSession,String board_code) {
+		int cnt = openSession.selectOne("bd.getBdCnt",board_code);
 		return cnt;
 	}
 

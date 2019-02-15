@@ -44,6 +44,7 @@
 		select count(*)
 		from
 		board_detail
+		where board_code=#{board_code}
 
 	</select>
 	<!-- 전체 사용자 수 조회 -->
