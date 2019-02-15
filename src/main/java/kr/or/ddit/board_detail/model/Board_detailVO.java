@@ -50,6 +50,20 @@ public class Board_detailVO {
 	public void setBoard_num2(String board_num2) {
 		this.board_num2 = board_num2;
 	}
+	
+	public Board_detailVO(String board_num, String title, String content,
+			String board_code, String userid, String board_num2) {
+		super();
+		this.board_num = board_num;
+		this.title = title;
+		this.content = content;
+		this.board_code = board_code;
+		this.userid = userid;
+		this.board_num2 = board_num2;
+	}
+	public Board_detailVO() {
+	}
+
 	private String title; // 제목
 	private String content; // 내용 
 	private String upd_date; // 작성일시

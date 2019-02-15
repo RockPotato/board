@@ -7,10 +7,10 @@
     <typeAliases>
         <typeAlias alias="userVo" type="kr.or.ddit.user.model.UserVO"/>
         <typeAlias alias="pageVo" type="kr.or.ddit.util.model.PageVO"/>
-        <typeAlias alias="pageVo" type="kr.or.ddit.attach.model.AttachVO"/>
-        <typeAlias alias="pageVo" type="kr.or.ddit.board_class.model.Board_classVO"/>
-        <typeAlias alias="pageVo" type="kr.or.ddit.board_detail.model.Board_detailVO"/>
-        <typeAlias alias="pageVo" type="kr.or.ddit.reply.model.ReplyVO"/>
+        <typeAlias alias="attachVo" type="kr.or.ddit.attach.model.AttachVO"/>
+        <typeAlias alias="board_classVo" type="kr.or.ddit.board_class.model.Board_classVO"/>
+        <typeAlias alias="board_detailVo" type="kr.or.ddit.board_detail.model.Board_detailVO"/>
+        <typeAlias alias="replyVo" type="kr.or.ddit.reply.model.ReplyVO"/>
     </typeAliases>
   <environments default="development">
     <environment id="development">
@@ -25,5 +25,9 @@
   </environments>
   <mappers>
     <mapper resource="kr/or/ddit/db/mybatis/mapper/user.xml"/>
+    <mapper resource="kr/or/ddit/db/mybatis/mapper/boardDetail.xml"/>
+    <mapper resource="kr/or/ddit/db/mybatis/mapper/boardClass.xml"/>
+    <mapper resource="kr/or/ddit/db/mybatis/mapper/reply.xml"/>
   </mappers>
+  
 </configuration>

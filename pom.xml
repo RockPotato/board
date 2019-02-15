@@ -18,7 +18,22 @@
 		</plugins>
 	</build>
 
+	<repositories>
+		<!-- ojdbc6 설정시 -->
+		<repository>
+			<id>codelds</id>
+			<url>https://code.lds.org/nexus/content/groups/main-repo</url>
+		</repository>
+	</repositories>
+
 	<dependencies>
+		<!-- https://mvnrepository.com/artifact/junit/junit -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.12</version>
+			<scope>test</scope>
+		</dependency>
 
 		<dependency>
 			<groupId>javax.servlet</groupId>
@@ -58,6 +73,12 @@
 				deploy 1. test : test 과정까지만 필요한 dependency(ex : junit) 2. compile : 배포까지 
 				dependency 유지 3. provided : 운영환경에서 제공되기때문에 배포할 필요없는 dependency 4. system 
 				: mvn central repository에서 모든 lib를 제공하지 않기 때문에 -->
+		</dependency>
+		<dependency>
+			<groupId>com.oracle</groupId>
+			<artifactId>ojdbc6</artifactId>
+			<version>12.1.0.2</version>
+			<scope>provided</scope>
 		</dependency>
 	</dependencies>
 
