@@ -25,13 +25,30 @@
 		where
 		reply_code=#{reply_code}
 	</select>
+	
+	<select id="selectReplyByBn" resultType="board_detailVo">
+		select reply_code,
+			reply_content,
+			reply_del,
+			reply_date,
+			board_num,
+			userid
+		from reply
+		where
+		board_num=#{board_num}
+	</select>
 
 	<!-- 전체 사용자 수 조회 -->
 	<select id="getReplyCnt" resultType="integer">
-		select count(*)
+		select count(reply_code)
 		from
 		reply
 
+	</select>
+	<!-- 전체 사용자 수 조회 -->
+	<select id="getReplyMax" resultType="integer">
+		select max(board_num)
+		from reply
 	</select>
 
 	<!-- 사용자 입력 -->

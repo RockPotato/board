@@ -45,7 +45,8 @@ public class Board_detailDaoImpltest {
 	}
 	@Test
 	public void testGetBdCnt() {
-		int BdCnt = dao.getBdCnt(openSession);
+		String board_code = "1";
+		int BdCnt = dao.getBdCnt(openSession,board_code);
 		assertNotNull(BdCnt);
 	}
 	@Test

@@ -15,7 +15,7 @@
 				<c:if test="${bcList.size()>0}">
 					<c:forEach items="${bcList}" var="bcVo">
 						<c:if test="${bcVo.board_use=='y'}">
-							<li><a href="${pageContext.request.contextPath}/boarddetail?board_code=${bcVo.board_code}">${bcVo.board_nm}</a></li>
+							<li><a href="${pageContext.request.contextPath}/boardpaging?board_code=${bcVo.board_code}">${bcVo.board_nm}</a></li>
 						</c:if>
 					</c:forEach>
 				</c:if>

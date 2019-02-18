@@ -32,10 +32,14 @@
 	   	from 
     	( select a.*, rownum rn
     		from
-           		(select board_detail.*
+           		(select board_num, board_num2, '&lt;pre&gt;'||lpad(' ', 4*(level-1),' ') || title || '&lt;/pre&gt;' title,
+           		content,upd_date,del_check,board_code
            			from board_detail
            			where board_code=#{board_code}	
-           			order by board_num) a ) a
+           			start with board_num2 is null
+					connect by prior board_num= board_num2
+					order siblings by board_num desc, board_num2
+           			) a ) a
    		where rn between (#{page}-1) * #{pageSize}+1 and #{page} * #{pageSize}
   	</select>
 	

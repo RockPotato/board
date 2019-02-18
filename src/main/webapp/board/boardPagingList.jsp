@@ -5,6 +5,8 @@
 <!-- <!DOCTYPE html> -->
 <html>
 <head>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>게시글 목록</title>
 <!-- Bootstrap core CSS -->
@@ -35,16 +37,27 @@
 				</thead>
 				<tbody>
 					<c:forEach items="${bdList}" var="vo">
-						<tr class="bdTr" data-bdid="${vo.board_num }">
-							<td>${vo.board_num }</td>
-							<td>${vo.title}</td>
-							<td>${vo.userid }</td>
-							<td><fmt:formatDate value="${vo.upd_date}"
-									pattern="yyyy/MM/dd"></fmt:formatDate></td>
-						</tr>
+						<c:if test="${vo.del_check=='n'}">
+							<tr class="bdTr" data-bdid="${vo.board_num }">
+								<td>${vo.board_num }</td>
+								<td>${vo.title}</td>
+								<td>${vo.userid }</td>
+								<td><fmt:formatDate value="${vo.upd_date}"
+										pattern="yyyy/MM/dd"></fmt:formatDate></td>
+							</tr>
+						</c:if>
+						<c:if test="${vo.del_check=='y'}">
+							<tr>
+								<td colspan="4">삭제 된 글입니다.</td>
+							</tr>
+						</c:if>
 					</c:forEach>
 				</tbody>
 			</table>
+			
+			<form action="${pageContext.request.contextPath}/boarddetail" method="get" id="gotoDetailFrm">
+				<input type="hidden" id="bdId" name="bdId" />
+			</form>
 			
 			<c:set var="lastPage"
 				value="${Integer(bdCnt / pageSize + (bdCnt % pageSize > 0 ? 1 : 0))}" />
@@ -59,7 +72,7 @@
 						</c:when>
 						<c:otherwise>
 							<li><a
-								href="${pageContext.servletContext.contextPath }/boarddetail?board_code=${board_code}"
+								href="${pageContext.servletContext.contextPath }/boardpaging?board_code=${board_code}"
 								aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
 							</a></li>
 						</c:otherwise>
@@ -72,7 +85,7 @@
 						</c:when>
 						<c:otherwise>
 							<li><a
-								href="${pageContext.servletContext.contextPath }/boarddetail?page=${page-1}&board_code=${board_code}"
+								href="${pageContext.servletContext.contextPath }/boardpaging?page=${page-1}&board_code=${board_code}"
 								aria-label="Previous"> <span aria-hidden="true">&lt;</span>
 							</a></li>
 						</c:otherwise>
@@ -85,7 +98,7 @@
 						</c:if>
 
 						<li class="${active }"><a
-							href="${pageContext.servletContext.contextPath }/boarddetail?board_code=${board_code}&page=${i}">${i}</a>
+							href="${pageContext.servletContext.contextPath }/boardpaging?board_code=${board_code}&page=${i}">${i}</a>
 						</li>
 					</c:forEach>
 
@@ -97,7 +110,7 @@
 						</c:when>
 						<c:otherwise>
 							<li><a
-								href="${pageContext.servletContext.contextPath }/boarddetail?board_code=${board_code}&page=
+								href="${pageContext.servletContext.contextPath }/boardpaging?board_code=${board_code}&page=
 												${page+1}"
 								aria-label="Next"> <span aria-hidden="true">&gt;</span>
 							</a></li>
@@ -111,7 +124,7 @@
 						</c:when>
 						<c:otherwise>
 							<li><a
-								href="${pageContext.servletContext.contextPath }/boarddetail?board_code=${board_code}&page=
+								href="${pageContext.servletContext.contextPath }/boardpaging?board_code=${board_code}&page=
 												${lastPage}"
 								aria-label="Next"> <span aria-hidden="true">&raquo;</span>
 							</a></li>
@@ -120,12 +133,24 @@
 				</ul>
 				<form action="${pageContext.request.contextPath}/bdForm"
 					method="get">
-					<button type="submit" class="btn_btn-default">글 등록</button>
+					<input type="hidden" id="board_code" name="board_code" value="${board_code}">
+					<button type="submit" class="btn_btn-default" >글 등록</button>
 				</form>
 			</nav>
 
 
 		</div>
 	</div>
+	
+	<script>
+	$(document).ready(function(){
+		$(".bdTr").on("click",function(){
+			console.log($(this).data("bdid"));
+			var bdId = $(this).data("bdid");
+			$("#bdId").val(bdId);
+			$("#gotoDetailFrm").submit();
+		})
+	});
+	</script>
 </body>
 </html>

@@ -13,56 +13,37 @@ import javax.servlet.http.HttpServletResponse;
 import kr.or.ddit.board_detail.model.Board_detailVO;
 import kr.or.ddit.board_detail.service.Board_detailServiceImpl;
 import kr.or.ddit.board_detail.service.IBoard_detailService;
+import kr.or.ddit.reply.model.ReplyVO;
+import kr.or.ddit.reply.service.IReplyService;
+import kr.or.ddit.reply.service.ReplyServiceImpl;
 import kr.or.ddit.user.model.UserVO;
 import kr.or.ddit.util.model.PageVO;
 
 @WebServlet("/boarddetail")
 public class Board_detailController extends HttpServlet {
-
+	private IBoard_detailService service;
+	private IReplyService replyService;
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String board_code = request.getParameter("board_code");
-		IBoard_detailService service = new Board_detailServiceImpl();
-
-		// page, pageSize에 해당하는 파라미터 받기 ==> pageVo
-		// 단 파라미터가 없을 경우 page : 1, pageSize : 10;
-		String pageStr = request.getParameter("page");
-		String pagSizeeStr = request.getParameter("pageSize");
-		int page = pageStr == null ? 1 : Integer.parseInt(request
-				.getParameter("page"));
-		int pageSize = pagSizeeStr == null ? 10 : Integer.parseInt(request
-				.getParameter("pageSize"));
-
-		PageVO pageVo = new PageVO(page, pageSize);
-		pageVo.setBoard_code(board_code);
-		// userService 객체를 이용 userPageingList 조회
-		Map<String, Object> resultMap = service.selectBdPagingList(pageVo,board_code);
-		System.out.println(resultMap.size());
-		List<Board_detailVO> bdList = (List<Board_detailVO>) resultMap.get("bdList");
-		System.out.println(bdList.size());
-		int bdCnt = (Integer) resultMap.get("getBdCnt");
-		// request 객체에 조호된 결과를 속성으로 설정
-		request.setAttribute("board_code", board_code);
-		request.setAttribute("bdList", bdList);
-		request.setAttribute("bdCnt", bdCnt);
-		request.setAttribute("pageSize", pageSize);
-		request.setAttribute("page", page);
-		// userPagingList를 화면으로 출력할 jsp로 위임(forward)
-
-		request.getRequestDispatcher(request.getContextPath()+"/board/boardPagingList.jsp").forward(request,
-				response);
+		String board_num = request.getParameter("bdId");
+		Board_detailVO selectBd = service.selectBd(board_num);
+		List<ReplyVO> selectReplyByBn = replyService.selectReplyByBn(board_num);
+		request.setAttribute("replyList", selectReplyByBn);
+		request.setAttribute("selectBd", selectBd);
+		request.getRequestDispatcher("/board/boardDetail.jsp").forward(request, response);
 	}
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+		
 	}
 
 	@Override
 	public void init() throws ServletException {
-
+		service= new Board_detailServiceImpl();
+		replyService = new ReplyServiceImpl();
 	}
 
 }

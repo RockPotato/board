@@ -32,7 +32,8 @@ public class Board_detailServiceImpltest {
 
 	@Test
 	public void testGetBdCnt() {
-		int BdCnt = service.getBdCnt();
+		String board_code = "1";
+		int BdCnt = service.getBdCnt(board_code);
 		assertNotNull(BdCnt);
 	}
 
