@@ -25,20 +25,40 @@
 		<label>${selectBd.title}</label><br/>
 		<label>글내용</label>
 		<label>${selectBd.content }</label><br/>
-		<label>첨부파일</label>
+		<label>첨부파일</label><br/>
+		<form action="${pageContext.request.contextPath }/boardupd" method="get" id="updFrm">
+			<input type="submit" id="updBoard" value="수정"/>
+			<input type="submit" id="delBoard" value="삭제"/>
+			<input type="hidden" id="board_code" name="board_code" value="${selectBd.board_code }">
+			<input type="hidden" id="board_num2" name="board_num2" value="${selectBd.board_num }">
+			<input type="hidden" id="board_num" name="board_num" value="${selectBd.board_num }">
+			<input type="submit" id="ansBoard" value="답글"/><br/>
+		</form>
 		<label>댓글</label>
 		<c:if test="${replyList!=null }">
 			<c:forEach items="${replyList}" var="rvo">
-				<label>${vo.reply_content}</label>			
-				<label>[${vo.userid}/${vo.reply_date}]</label><br/>		
+				${rvo.reply_content}			
+				<label>[${rvo.userid}/${rvo.reply_date}]</label><br/>		
 			</c:forEach>
 		</c:if>
-		<form action="" method="post">
+		<form action="${pageContext.request.contextPath}/boarddetail" method="post">
 			<textarea rows="1" cols="20" id="newReply" name="newReply"></textarea>
-			<button type="submit" id="newReplyBtn"></button>
+			<input type="hidden" id="board_num" name="board_num" value="${selectBd.board_num }">
+			<input type="submit" id="newReplyBtn" value="댓글 저장">
 		</form>
-		
-		
 	</div>
+	<script>
+		$(document).ready(function(){
+			$("#delBoard").on("click",function(){
+				if(confirm("삭제하시겠습니까?")){
+					$("#updFrm").attr("method","post");
+					$("#updFrm").attr("action","${pageContext.request.contextPath }/boardpaging");
+				}
+			});
+			$("#ansBoard").on("click",function(){
+					$("#updFrm").attr("action","${pageContext.request.contextPath }/bdForm");
+			});
+		});
+	</script>
 </body>
 </html>

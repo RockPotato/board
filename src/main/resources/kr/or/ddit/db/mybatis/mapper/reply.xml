@@ -26,7 +26,7 @@
 		reply_code=#{reply_code}
 	</select>
 	
-	<select id="selectReplyByBn" resultType="board_detailVo">
+	<select id="selectReplyByBn" resultType="replyVo">
 		select reply_code,
 			reply_content,
 			reply_del,
@@ -47,7 +47,7 @@
 	</select>
 	<!-- 전체 사용자 수 조회 -->
 	<select id="getReplyMax" resultType="integer">
-		select max(board_num)
+		select max(reply_code)
 		from reply
 	</select>
 
@@ -56,23 +56,18 @@
 		insert into reply
 		(reply_code,
 			reply_content,
-			reply_del,
 			reply_date,
 			board_num,
 			userid)
-		values (#{reply_code}, #{reply_content},#{reply_del}, sysdate,
+		values (#{reply_code}, #{reply_content},
+		 sysdate,
 		#{board_num},#{userid})
 	</insert>
 
 	<update id="updateReply" parameterType="replyVo">
 		update reply
 		set
-		reply_code=#{reply_code},
-		reply_content=#{reply_content},
-		reply_del=#{reply_del},
-		reply_date=sysdate,
-		board_num=#{board_num},
-		userid=#{userid}
+		reply_del=#{reply_del}
 		where reply_code=#{reply_code}
 	</update>
 </mapper>

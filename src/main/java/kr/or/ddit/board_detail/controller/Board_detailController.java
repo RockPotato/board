@@ -26,7 +26,7 @@ public class Board_detailController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String board_num = request.getParameter("bdId");
+		String board_num = request.getParameter("board_num");
 		Board_detailVO selectBd = service.selectBd(board_num);
 		List<ReplyVO> selectReplyByBn = replyService.selectReplyByBn(board_num);
 		request.setAttribute("replyList", selectReplyByBn);
@@ -37,7 +37,19 @@ public class Board_detailController extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		String replyContent = request.getParameter("newReply");
 		
+		String board_num = request.getParameter("board_num");
+		System.out.println(board_num);
+		UserVO userVo = (UserVO) request.getSession().getAttribute("userVo");
+		String userid = userVo.getUserId();
+		String reply_code = Integer.toString(replyService.getReplyMax()+1);
+		ReplyVO vo = new ReplyVO(reply_code, replyContent, board_num, userid);
+		int cnt = replyService.insertReply(vo);
+		if(cnt >0){
+			System.out.println("성공");
+			doGet(request, response);
+		}
 	}
 
 	@Override

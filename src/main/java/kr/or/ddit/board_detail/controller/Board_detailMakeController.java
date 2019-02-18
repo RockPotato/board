@@ -27,18 +27,30 @@ public class Board_detailMakeController extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		boolean flag=false;
+		request.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding("UTF-8");
 		String board_code = request.getParameter("board_code");
 		String board_num2 = request.getParameter("board_num2");
 		String content = request.getParameter("smarteditor");
 		String title = request.getParameter("title");
-		String board_num =Integer.toString(service.getBdMax());
+		String board_num = request.getParameter("board_num");
 		UserVO userVo = (UserVO) request.getSession().getAttribute("userVo");
 		String userId = userVo.getUserId();
+		if(board_num==null){
+			board_num =Integer.toString(service.getBdMax()+1);
+			flag=true;
+		}
 		Board_detailVO vo = new Board_detailVO(board_num, title, content, board_code, userId, board_num2);
-		
-		int cnt = service.insertBd(vo);
+		int cnt = 0;
+		if(flag){
+			cnt = service.insertBd(vo);
+		}
+		else{
+			cnt = service.updateBd(vo);
+		}
 		if(cnt>0){
-			
+			response.sendRedirect("/boarddetail?board_num="+board_num);
 		}
 	}
 

@@ -25,6 +25,16 @@ public class ReplyVO {
 	public void setReply_del(String reply_del) {
 		this.reply_del = reply_del;
 	}
+	public ReplyVO() {
+	}
+	public ReplyVO(String reply_code, String reply_content, String board_num,
+			String userid) {
+		super();
+		this.reply_code = reply_code;
+		this.reply_content = reply_content;
+		this.board_num = board_num;
+		this.userid = userid;
+	}
 	public String getReply_date() {
 		return reply_date;
 	}

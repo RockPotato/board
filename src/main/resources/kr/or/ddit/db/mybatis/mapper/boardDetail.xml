@@ -32,7 +32,7 @@
 	   	from 
     	( select a.*, rownum rn
     		from
-           		(select board_num, board_num2, '&lt;pre&gt;'||lpad(' ', 4*(level-1),' ') || title || '&lt;/pre&gt;' title,
+           		(select board_num, board_num2, '&lt;pre&gt;'||lpad('↳', 4*(level-1),' ') || title || '&lt;/pre&gt;' title,
            		content,upd_date,del_check,board_code
            			from board_detail
            			where board_code=#{board_code}	
@@ -83,7 +83,7 @@
 		title=#{title},
 		content=#{content},
 		upd_date=sysdate,
-		del_check=#{del_check},
+		del_check=nvl(#{del_check,jdbcType=VARCHAR},'n'),
 		board_code=#{board_code},
 		userid=#{userid},
 		board_num2=nvl(#{board_num2,jdbcType=VARCHAR},board_num2)

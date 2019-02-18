@@ -56,7 +56,11 @@ public class Board_pagingController extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		String board_num = request.getParameter("board_num");
+		Board_detailVO selectBd = service.selectBd(board_num);
+		selectBd.setDel_check("y");
+		service.updateBd(selectBd);
+		response.sendRedirect(request.getContextPath()+"/boardpaging?board_code="+selectBd.getBoard_code());
 	}
 
 }

@@ -29,7 +29,9 @@ public class ReplyDaoImpl implements IReplyDao {
 
 	@Override
 	public int getReplyMax(SqlSession openSession) {
-		int cnt = openSession.selectOne("reply.getReplyMax");
+		int cnt = 0;
+		if(openSession.selectOne("reply.getReplyMax")!=null)
+			cnt = openSession.selectOne("reply.getReplyMax");
 		return cnt;
 	}
 

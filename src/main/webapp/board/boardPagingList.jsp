@@ -56,7 +56,7 @@
 			</table>
 			
 			<form action="${pageContext.request.contextPath}/boarddetail" method="get" id="gotoDetailFrm">
-				<input type="hidden" id="bdId" name="bdId" />
+				<input type="hidden" id="board_num" name="board_num" />
 			</form>
 			
 			<c:set var="lastPage"
@@ -147,7 +147,7 @@
 		$(".bdTr").on("click",function(){
 			console.log($(this).data("bdid"));
 			var bdId = $(this).data("bdid");
-			$("#bdId").val(bdId);
+			$("#board_num").val(bdId);
 			$("#gotoDetailFrm").submit();
 		})
 	});

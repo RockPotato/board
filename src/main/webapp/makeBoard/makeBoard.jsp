@@ -57,7 +57,7 @@
 		});
 		$(".updBoardCode").on("click",function(){
 			console.log($(this).parent("#updBoardFrm"));
-// 			$(this).parent("#updBoardFrm").submit();
+			$(this).parent("#updBoardFrm").submit();
 		});
 	})
 // 	function updSubmit(board_code){
