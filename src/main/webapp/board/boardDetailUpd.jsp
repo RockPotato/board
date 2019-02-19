@@ -43,8 +43,9 @@
 						bUseModeChanger : true,
 					}
 				});
+				var content= '${boardVo.content}';
 					$("#title").val("${boardVo.title}")
-					$("#smarteditor").val("${boardVo.content}");
+					$("#smarteditor").val(content);
 				// 전송버튼 클릭이벤트
 				$("#savebutton").click(
 						function() {

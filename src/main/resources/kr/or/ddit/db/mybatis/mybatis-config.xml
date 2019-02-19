@@ -11,6 +11,7 @@
         <typeAlias alias="board_classVo" type="kr.or.ddit.board_class.model.Board_classVO"/>
         <typeAlias alias="board_detailVo" type="kr.or.ddit.board_detail.model.Board_detailVO"/>
         <typeAlias alias="replyVo" type="kr.or.ddit.reply.model.ReplyVO"/>
+        <typeAlias alias="attachVo" type="kr.or.ddit.attach.model.AttachVO"/>
     </typeAliases>
   <environments default="development">
     <environment id="development">
@@ -28,6 +29,7 @@
     <mapper resource="kr/or/ddit/db/mybatis/mapper/boardDetail.xml"/>
     <mapper resource="kr/or/ddit/db/mybatis/mapper/boardClass.xml"/>
     <mapper resource="kr/or/ddit/db/mybatis/mapper/reply.xml"/>
+    <mapper resource="kr/or/ddit/db/mybatis/mapper/attach.xml"/>
   </mappers>
   
 </configuration>
