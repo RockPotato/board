@@ -25,7 +25,15 @@
 		<label>${selectBd.title}</label><br/>
 		<label>글내용</label>
 		<label>${selectBd.content }</label><br/>
-		<label>첨부파일</label><br/>
+		<label>첨부파일 목록</label><br/>
+		
+		<c:if test="${attachList!=null }">
+			<c:forEach items="${attachList}" var="avo">
+<%-- 			avo : ${avo}  <br> --%>
+<%-- 			${avo.attach_realnm}   ////  ${avo.attach_path} <br> --%>
+			<a href='${pageContext.request.contextPath}/filedownload?attach_code=${avo.attach_code}&board_num=${avo.board_num}'>${avo.attach_nm}</a>
+			</c:forEach>
+		</c:if>
 		<form action="${pageContext.request.contextPath }/boardupd" method="get" id="updFrm">
 			<input type="submit" id="updBoard" value="수정"/>
 			<input type="submit" id="delBoard" value="삭제"/>
@@ -34,6 +42,7 @@
 			<input type="hidden" id="board_num" name="board_num" value="${selectBd.board_num }">
 			<input type="submit" id="ansBoard" value="답글"/><br/>
 		</form>
+		
 		<label>댓글</label>
 		<c:if test="${replyList!=null }">
 			<c:forEach items="${replyList}" var="rvo">

@@ -54,8 +54,9 @@ public class AttachDaoImpltest {
 	}
 	@Test
 	public void testGetAttachMax() {
-		int AttachCnt = dao.getAttachMax(openSession);
-		assertEquals(2,	AttachCnt);
+		String board_num = "2";
+		int AttachCnt = dao.getAttachMax(openSession,board_num);
+		assertEquals(1,	AttachCnt);
 	}
 	@Test
 	public void testInsertAttach() {

@@ -31,13 +31,13 @@ public class AttachServiceImpl implements IAttachService {
 
 
 	@Override
-	public AttachVO selectAttach(String attach_code) {
+	public AttachVO selectAttach(AttachVO vo) {
 		SqlSessionFactory sqlSessionFactory = MybatisSqlSessionFactory.getSqlSessionFactory();
 		SqlSession openSession = sqlSessionFactory.openSession();
-		AttachVO vo =dao.selectAttach(openSession, attach_code);
+		AttachVO avo =dao.selectAttach(openSession, vo);
 		openSession.commit();
 		openSession.close();
-		return vo;
+		return avo;
 	}
 
 	@Override
@@ -72,10 +72,10 @@ public class AttachServiceImpl implements IAttachService {
 	}
 
 	@Override
-	public int getAttachMax() {
+	public int getAttachMax(String board_num) {
 		SqlSessionFactory sqlSessionFactory = MybatisSqlSessionFactory.getSqlSessionFactory();
 		SqlSession openSession = sqlSessionFactory.openSession();
-		int attachMax = dao.getAttachMax(openSession);
+		int attachMax = dao.getAttachMax(openSession,board_num);
 		openSession.commit();
 		openSession.close();
 		return attachMax;

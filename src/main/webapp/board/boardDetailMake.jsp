@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -69,14 +70,30 @@
 	<%-- <%@ include file="left.jsp" %> --%>
 	<jsp:include page="/left.jsp"></jsp:include>
 	<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-		<form action="${pageContext.request.contextPath}/bdForm" method="post" id="frm">
-		<label>제목 :&nbsp;</label><textarea rows="1" cols="100" id="title" name="title"></textarea>
+		<form action="${pageContext.request.contextPath}/bdForm" method="post"
+			id="frm" enctype="multipart/form-data">
+			<label>제목 :&nbsp;</label>
+			<textarea rows="1" cols="100" id="title" name="title"></textarea>
 			<textarea name="smarteditor" id="smarteditor" rows="10" cols="100"
 				style="width: 766px; height: 412px;"></textarea>
-			<input type="hidden" name="board_code" id="board_code" value="${board_code}">
-			<input type="hidden" name="board_num2" id="board_num2" value="${board_num2}">
+			<input type="hidden" name="board_code" id="board_code"
+				value="${board_code}"> <input type="hidden"
+				name="board_num2" id="board_num2" value="${board_num2}">
+			<c:forEach begin="1" step="1" var="i" end="${cnt}">
+				<input type="file" name="uploadFile${i}" class="attach" /><br/>
+			</c:forEach>
+			<input type="hidden" name="cnt" id="cnt" value="${cnt}"/>
+		</form>
+		<form id="attachFrm" action="${pageContext.request.contextPath}/fileUpload"
+			method="get" >
+			<c:if test="${cnt<5}">
+				<input type="hidden" name="cnt" value="${cnt}"/>
+				<input type="submit" id="fileInputAdd" value="추가 업로드" name="fileInputAdd">
+			</c:if>
 		</form>
 		<input type="button" id="savebutton" value="저장" />
 	</div>
 </body>
+<script>
+</script>
 </html>

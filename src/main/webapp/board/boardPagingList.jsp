@@ -134,6 +134,7 @@
 				<form action="${pageContext.request.contextPath}/bdForm"
 					method="get">
 					<input type="hidden" id="board_code" name="board_code" value="${board_code}">
+					<input type="hidden" id="cnt" name="cnt" value="1">
 					<button type="submit" class="btn_btn-default" >글 등록</button>
 				</form>
 			</nav>

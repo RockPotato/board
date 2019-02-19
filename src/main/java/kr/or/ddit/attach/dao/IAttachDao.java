@@ -9,10 +9,10 @@ import org.apache.ibatis.session.SqlSession;
 
 public interface IAttachDao {
 	List<AttachVO> getAllAttach(SqlSession openSession);
-	public AttachVO selectAttach(SqlSession openSession,String attach_code);
+	public AttachVO selectAttach(SqlSession openSession,AttachVO vo);
 	public List<AttachVO> selectAttachByBn(SqlSession openSession,String board_num);
 	int getAttachCnt(SqlSession openSession);
 	int insertAttach(SqlSession openSession,AttachVO AttachVO);
 	int updateAttach(SqlSession openSession,AttachVO AttachVO);
-	int getAttachMax(SqlSession openSession);
+	int getAttachMax(SqlSession openSession,String board_num);
 }

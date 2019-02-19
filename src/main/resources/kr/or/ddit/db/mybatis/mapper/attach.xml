@@ -7,7 +7,8 @@
 		select attach_code,
 			attach_nm,
 			attach_path,
-			board_num
+			board_num,
+			attach_realnm
 		from attach
 	</select>
 
@@ -16,17 +17,19 @@
 		select attach_code,
 			attach_nm,
 			attach_path,
-			board_num
+			board_num,
+			attach_realnm
 		from attach
-		where
-		attach_code=#{attach_code}
+		where	attach_code=#{attach_code}
+		and		board_num=#{board_num}
 	</select>
 	
 	<select id="selectAttachByBn" resultType="attachVo">
 		select attach_code,
 			attach_nm,
 			attach_path,
-			board_num
+			board_num,
+			attach_realnm
 		from attach
 		where
 		board_num=#{board_num}
@@ -37,12 +40,13 @@
 		select count(attach_code)
 		from
 		attach
-
 	</select>
 	<!-- 전체 사용자 수 조회 -->
 	<select id="getAttachMax" resultType="integer">
 		select max(attach_code)
 		from attach
+		where
+		board_num=#{board_num}	
 	</select>
 
 	<!-- 사용자 입력 -->
@@ -51,21 +55,23 @@
 		(attach_code,
 			attach_nm,
 			attach_path,
-			board_num)
+			board_num,
+			attach_realnm)
 		values (#{attach_code}, #{attach_nm},
-		#{attach_path},#{board_num})
+		#{attach_path},#{board_num},
+			#{attach_realnm})
 	</insert>
 
 	<update id="updateAttach" parameterType="attachVo">
 		update attach
 		set
-		attach_code=#{attach_code}
 		<if test="#{attach_nm!=null}">
 			,attach_nm=#{attach_nm}
 		</if>
-		<if test="#{attach_path!=null}">
-			,attach_path=#{attach_path}
+		<if test="#{attach_realnm!=null}">
+			,attach_realnm=#{attach_realnm}
 		</if>
-		where attach_code=#{attach_code}
+		where	attach_code=#{attach_code}
+		and		board_num=#{board_num}
 	</update>
 </mapper>

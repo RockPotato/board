@@ -37,7 +37,8 @@ public class AttachServiceImpltest {
 	}
 	@Test
 	public void testGetAttachMax() {
-		int AttachCnt = service.getAttachMax();
+		String board_num ="12";
+		int AttachCnt = service.getAttachMax(board_num);
 		assertEquals(2, AttachCnt);
 	}
 	@Test

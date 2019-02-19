@@ -68,7 +68,7 @@ public class LoginServlet extends HttpServlet {
 		if(userVo==null){
 			request.setAttribute("msg", "ng");
 			RequestDispatcher rd = request
-					.getRequestDispatcher("/login/login.jsp");
+					.getRequestDispatcher("/signIn/login.jsp");
 			rd.forward(request, response);
 		}
 		else if (userVo.getUserId().equals(userId)
@@ -91,7 +91,7 @@ public class LoginServlet extends HttpServlet {
 			// request객체를 이용하여 dispatcher 객체를 얻고 /login/login.jsp로 forward
 			request.setAttribute("msg", "ng");
 			RequestDispatcher rd = request
-					.getRequestDispatcher("/login/login.jsp");
+					.getRequestDispatcher("/signIn/login.jsp");
 			rd.forward(request, response);
 		}
 

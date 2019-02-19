@@ -10,6 +10,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import kr.or.ddit.attach.model.AttachVO;
+import kr.or.ddit.attach.service.AttachServiceImpl;
+import kr.or.ddit.attach.service.IAttachService;
 import kr.or.ddit.board_detail.model.Board_detailVO;
 import kr.or.ddit.board_detail.service.Board_detailServiceImpl;
 import kr.or.ddit.board_detail.service.IBoard_detailService;
@@ -23,12 +26,15 @@ import kr.or.ddit.util.model.PageVO;
 public class Board_detailController extends HttpServlet {
 	private IBoard_detailService service;
 	private IReplyService replyService;
+	private IAttachService aService;
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String board_num = request.getParameter("board_num");
 		Board_detailVO selectBd = service.selectBd(board_num);
 		List<ReplyVO> selectReplyByBn = replyService.selectReplyByBn(board_num);
+		List<AttachVO> selectAttachByBn = aService.selectAttachByBn(board_num);
+		request.setAttribute("attachList", selectAttachByBn);
 		request.setAttribute("replyList", selectReplyByBn);
 		request.setAttribute("selectBd", selectBd);
 		request.getRequestDispatcher("/board/boardDetail.jsp").forward(request, response);
@@ -56,6 +62,7 @@ public class Board_detailController extends HttpServlet {
 	public void init() throws ServletException {
 		service= new Board_detailServiceImpl();
 		replyService = new ReplyServiceImpl();
+		aService = new AttachServiceImpl();
 	}
 
 }

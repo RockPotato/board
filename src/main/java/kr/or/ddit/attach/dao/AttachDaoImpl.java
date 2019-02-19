@@ -15,8 +15,8 @@ public class AttachDaoImpl implements IAttachDao {
 	}
 
 	@Override
-	public AttachVO selectAttach(SqlSession openSession, String attach_code) {
-		AttachVO selectOne = openSession.selectOne("attach.selectAttach",attach_code);
+	public AttachVO selectAttach(SqlSession openSession, AttachVO vo) {
+		AttachVO selectOne = openSession.selectOne("attach.selectAttach",vo);
 		return selectOne;
 	}
 
@@ -46,8 +46,11 @@ public class AttachDaoImpl implements IAttachDao {
 	}
 
 	@Override
-	public int getAttachMax(SqlSession openSession) {
-		int selectOne = openSession.selectOne("attach.getAttachMax");
+	public int getAttachMax(SqlSession openSession,String board_num) {
+		int selectOne =0;
+		if(openSession.selectOne("attach.getAttachMax",board_num)!=null){
+			selectOne = openSession.selectOne("attach.getAttachMax",board_num);
+		}
 		return selectOne;
 	}
 
