@@ -1,6 +1,7 @@
 <%@page import="kr.or.ddit.board_detail.model.Board_detailVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -82,15 +83,44 @@
 	<%-- <%@ include file="left.jsp" %> --%>
 	<jsp:include page="/left.jsp"></jsp:include>
 	<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-		<form action="${pageContext.request.contextPath}/boardupd" method="post" id="frm">
-		<label>제목 :&nbsp;</label><textarea rows="1" cols="100" id="title" name="title"></textarea>
+		<form action="${pageContext.request.contextPath}/boardupd"
+			method="post" id="frm" enctype="multipart/form-data">
+			<label>제목 :&nbsp;</label>
+			<textarea rows="1" cols="100" id="title" name="title"></textarea>
 			<textarea name="smarteditor" id="smarteditor" rows="10" cols="100"
 				style="width: 766px; height: 412px;"></textarea>
-			<input type="hidden" name="board_code" id="board_code" value="${boardVo.board_code}">
-			<input type="hidden" name="board_num" id="board_num" value="${boardVo.board_num}">
-			<input type="hidden" name="board_num2" id="board_num2" value="${boardVo.board_num2}">
+			<input type="hidden" name="board_code" id="board_code"
+				value="${boardVo.board_code}"> <input type="hidden"
+				name="board_num" id="board_num" value="${boardVo.board_num}">
+			<input type="hidden" name="board_num2" id="board_num2"
+				value="${boardVo.board_num2}">
+			<h4>첨부파일 목록</h4>
+			<c:forEach items="${attachList}" var="vo">
+				<div>
+					<label>${vo.attach_nm}</label> <input type="button"
+						class="attachDelBtn" value="삭제" /><br /> <input type="hidden"
+						value="${vo.attach_code}" class="attachCodeTemp" />
+				</div>
+			</c:forEach>
+			<input type="hidden" name="attachCode" id="attachCode" /> <input
+				type="button" id="addFile" value="파일 첨부 추가">
 		</form>
 		<input type="button" id="savebutton" value="저장" />
 	</div>
 </body>
+<script>
+	$(document).ready(function(){
+		var cnt =5-${attachList.size()};
+		$(".attachDelBtn").on("click",function(){
+			$("#attachCode").val($(this).siblings(".attachCodeTemp").val());
+			$("#frm").attr("action","${pageContext.request.contextPath}/filedelete");
+			$("#frm").submit();
+		})
+		$("#addFile").on("click",function(){
+			if($(".attach").size()<cnt){
+				$("#frm").append("<input type=\"file\" name=\"uploadFile\" class=\"attach\" /><br/>");
+			}
+		})
+	});
+</script>
 </html>

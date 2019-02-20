@@ -54,4 +54,10 @@ public class AttachDaoImpl implements IAttachDao {
 		return selectOne;
 	}
 
+	@Override
+	public int deleteAttach(SqlSession openSession, AttachVO attachVO) {
+		int delete = openSession.delete("attach.deleteAttach", attachVO);
+		return delete;
+	}
+
 }

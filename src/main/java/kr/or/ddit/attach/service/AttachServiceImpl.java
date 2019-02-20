@@ -91,4 +91,14 @@ public class AttachServiceImpl implements IAttachService {
 		return selectAttachByBn;
 	}
 
+	@Override
+	public int deleteAttach(AttachVO attachVo) {
+		SqlSessionFactory sqlSessionFactory = MybatisSqlSessionFactory.getSqlSessionFactory();
+		SqlSession openSession = sqlSessionFactory.openSession();
+		int deleteAttach = dao.deleteAttach(openSession, attachVo);
+		openSession.commit();
+		openSession.close();
+		return deleteAttach;
+	}
+
 }

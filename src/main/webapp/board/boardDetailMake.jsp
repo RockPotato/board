@@ -88,12 +88,11 @@
 			method="get" >
 			<c:if test="${cnt<5}">
 				<input type="hidden" name="cnt" value="${cnt}"/>
-				<input type="submit" id="fileInputAdd" value="추가 업로드" name="fileInputAdd">
+				<input type="submit" id="fileInputAdd" value="추가 업로드">
+				<input type="hidden" name="board_code" value="${board_code}">
 			</c:if>
 		</form>
 		<input type="button" id="savebutton" value="저장" />
 	</div>
 </body>
-<script>
-</script>
 </html>

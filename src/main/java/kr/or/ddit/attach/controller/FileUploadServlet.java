@@ -48,6 +48,7 @@ public class FileUploadServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
+		
 		if(Integer.parseInt(request.getParameter("cnt"))<5){
 			String cnt =Integer.toString(Integer.parseInt(request.getParameter("cnt"))+1);
 			request.setAttribute("cnt", cnt);
@@ -56,6 +57,7 @@ public class FileUploadServlet extends HttpServlet {
 			String cnt =request.getParameter("cnt");
 			request.setAttribute("cnt", cnt);
 		}
+		request.setAttribute("board_code",request.getParameter("board_code"));
 		request.getRequestDispatcher("/board/boardDetailMake.jsp").forward(request,
 				response);
 	}

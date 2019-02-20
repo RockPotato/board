@@ -26,8 +26,10 @@ public class AttachServiceImpltest {
 	}
 	@Test
 	public void testSelectAttach() {
-		String attach_code = "1";
-		AttachVO selectAttach = service.selectAttach(attach_code);
+		AttachVO vo = new AttachVO();
+		vo.setAttach_code("1");
+		vo.setBoard_num("101");
+		AttachVO selectAttach = service.selectAttach(vo);
 		assertNotNull(selectAttach);
 	}
 	@Test
@@ -43,13 +45,13 @@ public class AttachServiceImpltest {
 	}
 	@Test
 	public void testInsertAttach() {
-		AttachVO AttachVO=new AttachVO("2", "cony.png", "d:\\picture\\", "12");
+		AttachVO AttachVO=new AttachVO("2", "cony.png", "d:\\picture\\", "12","cony.png");
 		int insertAttach = service.insertAttach(AttachVO);
 		assertNotNull(insertAttach);
 	}
 	@Test
 	public void testUpdateAttach() {
-		AttachVO AttachVO=new AttachVO("2", "cony.png", "d:\\picture\\", "12");
+		AttachVO AttachVO=new AttachVO("2", "cony.png", "d:\\picture\\", "12","cony.png");
 		int updateAttach = service.updateAttach(AttachVO);
 		assertNotNull(updateAttach);
 	}

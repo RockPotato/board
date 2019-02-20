@@ -15,4 +15,5 @@ public interface IAttachDao {
 	int insertAttach(SqlSession openSession,AttachVO AttachVO);
 	int updateAttach(SqlSession openSession,AttachVO AttachVO);
 	int getAttachMax(SqlSession openSession,String board_num);
+	int deleteAttach(SqlSession openSession,AttachVO attachVO);
 }

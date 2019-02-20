@@ -12,6 +12,8 @@ public interface IAttachService {
 	int getAttachCnt();
 	int insertAttach(AttachVO attachVo);
 	int updateAttach(AttachVO attachVo);
+	int deleteAttach(AttachVO attachVo);
 	int getAttachMax(String board_num);
 	List<AttachVO> selectAttachByBn(String board_num);
+
 }

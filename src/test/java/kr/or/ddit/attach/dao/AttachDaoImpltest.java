@@ -43,8 +43,10 @@ public class AttachDaoImpltest {
 	}
 	@Test
 	public void testSelectAttach() {
-		String attach_code = "1";
-		AttachVO selectAttach = dao.selectAttach(openSession, attach_code);
+		AttachVO vo = new AttachVO();
+		vo.setAttach_code("1");
+		vo.setBoard_num("101");
+		AttachVO selectAttach = dao.selectAttach(openSession, vo);
 		assertNotNull(selectAttach);
 	}
 	@Test
@@ -60,15 +62,23 @@ public class AttachDaoImpltest {
 	}
 	@Test
 	public void testInsertAttach() {
-		AttachVO attachVO = new AttachVO("1", "brown.png", "d:\\picture\\", "2");
+		AttachVO attachVO = new AttachVO("1", "brown.png", "d:\\picture\\", "2","brown.png");
 		int insertAttach = dao.insertAttach(openSession, attachVO);
 		assertNotNull(insertAttach);
 	}
 	@Test
 	public void testUpdateAttach() {
-		AttachVO attachVO = new AttachVO("1", "brownUpd.png", "d:\\picture\\", "2");
+		AttachVO attachVO = new AttachVO("1", "brownUpd.png", "d:\\picture\\", "2","brown.png");
 		int updateAttach = dao.updateAttach(openSession, attachVO);
 		assertNotNull(updateAttach);
+	}
+	@Test
+	public void testDeleteAttach() {
+		AttachVO vo = new AttachVO();
+		vo.setAttach_code("1");
+		vo.setBoard_num("2");
+		int deleteAttach = dao.deleteAttach(openSession, vo);
+		assertNotNull(deleteAttach);
 	}
 
 }

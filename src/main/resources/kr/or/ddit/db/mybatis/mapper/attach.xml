@@ -66,7 +66,7 @@
 		update attach
 		set
 		<if test="#{attach_nm!=null}">
-			,attach_nm=#{attach_nm}
+			attach_nm=#{attach_nm}
 		</if>
 		<if test="#{attach_realnm!=null}">
 			,attach_realnm=#{attach_realnm}
@@ -74,4 +74,10 @@
 		where	attach_code=#{attach_code}
 		and		board_num=#{board_num}
 	</update>
+	<delete id="deleteAttach" parameterType="attachVo">
+		delete 
+		from attach 
+		where	attach_code=#{attach_code} 
+		and		board_num=#{board_num}
+	</delete>
 </mapper>
