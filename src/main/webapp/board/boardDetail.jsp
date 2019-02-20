@@ -18,6 +18,10 @@
 </head>
 <body>
 	<%@ include file="/header.jsp"%>
+	<%
+		UserVO vo = (UserVO)session.getAttribute("userVo");
+		%>
+	<c:set scope="request" value="<%=vo.getUserId() %>" var="sUserId"/>
 	<%-- <%@ include file="left.jsp" %> --%>
 	<jsp:include page="/left.jsp"></jsp:include>
 	<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
@@ -46,8 +50,20 @@
 		<label>댓글</label>
 		<c:if test="${replyList!=null }">
 			<c:forEach items="${replyList}" var="rvo">
-				${rvo.reply_content}			
-				<label>[${rvo.userid}/${rvo.reply_date}]</label><br/>		
+				<c:if test="${rvo.reply_del=='n' }">
+					${rvo.reply_content}			
+					<label>[${rvo.userid}/${rvo.reply_date}]</label>
+					<c:if test="${rvo.userid==sUserId}">
+					<form action="${pageContext.request.contextPath }/replyupd" method="post" >
+						<input type="submit" value="삭제" class="replyDel" />
+						<input type="hidden" name="reply_code" value="${rvo.reply_code}">
+						<input type="hidden" name="board_num" value="${selectBd.board_num}">
+					</form>
+					</c:if>	
+				</c:if>
+				<c:if test="${rvo.reply_del=='y'}">
+					삭제된 댓글입니다.<br/>
+				</c:if>
 			</c:forEach>
 		</c:if>
 		<form action="${pageContext.request.contextPath}/boarddetail" method="post">

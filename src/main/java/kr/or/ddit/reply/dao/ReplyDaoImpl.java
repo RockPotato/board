@@ -23,7 +23,7 @@ public class ReplyDaoImpl implements IReplyDao {
 
 	@Override
 	public int updateReply(SqlSession openSession, ReplyVO ReplyVO) {
-		int cnt = openSession.update("reply.insertReply",ReplyVO);
+		int cnt = openSession.update("reply.updateReply",ReplyVO);
 		return cnt;
 	}
 
@@ -33,6 +33,12 @@ public class ReplyDaoImpl implements IReplyDao {
 		if(openSession.selectOne("reply.getReplyMax")!=null)
 			cnt = openSession.selectOne("reply.getReplyMax");
 		return cnt;
+	}
+
+	@Override
+	public ReplyVO selectReply(SqlSession openSession, String reply_code) {
+		ReplyVO selectOne = openSession.selectOne("reply.selectReply",reply_code);
+		return selectOne;
 	}
 
 }

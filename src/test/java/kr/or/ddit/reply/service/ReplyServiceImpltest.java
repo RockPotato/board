@@ -42,5 +42,11 @@ public class ReplyServiceImpltest {
 		int updateReply = service.updateReply(ReplyVO);
 		assertNotNull(updateReply);
 	}
-
+	
+	@Test
+	public void testSelectReply(){
+		String reply_code = "12";
+		ReplyVO selectReply = service.selectReply( reply_code);
+		assertNotNull(selectReply);
+	}
 }

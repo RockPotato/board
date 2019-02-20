@@ -60,4 +60,14 @@ public class ReplyServiceImpl implements IReplyService{
 		return cnt;
 	}
 
+	@Override
+	public ReplyVO selectReply(String reply_code) {
+		SqlSessionFactory sqlSessionFactory = MybatisSqlSessionFactory.getSqlSessionFactory();
+		SqlSession openSession = sqlSessionFactory.openSession();
+		ReplyVO selectReply = dao.selectReply(openSession, reply_code);
+		openSession.commit();
+		openSession.close();
+		return selectReply;
+	}
+
 }

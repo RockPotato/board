@@ -55,5 +55,11 @@ public class ReplyDaoImpltest {
 		int updateReply = dao.updateReply(openSession, ReplyVO);
 		assertNotNull(updateReply);
 	}
+	@Test
+	public void testSelectReply(){
+		String reply_code = "12";
+		ReplyVO selectReply = dao.selectReply(openSession, reply_code);
+		assertNotNull(selectReply);
+	}
 
 }

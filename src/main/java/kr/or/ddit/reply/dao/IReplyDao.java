@@ -11,4 +11,5 @@ public interface IReplyDao {
 	int insertReply(SqlSession openSession,ReplyVO ReplyVO);
 	int updateReply(SqlSession openSession,ReplyVO ReplyVO);
 	int getReplyMax(SqlSession openSession);
+	ReplyVO selectReply(SqlSession openSession,String reply_code);
 }
