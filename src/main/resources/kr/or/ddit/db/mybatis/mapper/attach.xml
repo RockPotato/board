@@ -4,7 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="attach">
 	<select id="getAllAttach" resultType="attachVo">
-		select attach_code,
+		select /*+ INDEX(attach pk_attach)*/ attach_code,
 			attach_nm,
 			attach_path,
 			board_num,
@@ -14,7 +14,7 @@
 
 	<!-- 특정 게시글 분휴 -->
 	<select id="selectAttach" resultType="attachVo">
-		select attach_code,
+		select /*+ INDEX(attach pk_attach)*/ attach_code,
 			attach_nm,
 			attach_path,
 			board_num,
@@ -25,7 +25,7 @@
 	</select>
 	
 	<select id="selectAttachByBn" resultType="attachVo">
-		select attach_code,
+		select /*+ INDEX(attach pk_attach)*/ attach_code,
 			attach_nm,
 			attach_path,
 			board_num,
@@ -37,13 +37,13 @@
 
 	<!-- 전체 사용자 수 조회 -->
 	<select id="getAttachCnt" resultType="integer">
-		select count(attach_code)
+		select /*+ INDEX(attach pk_attach)*/ count(attach_code)
 		from
 		attach
 	</select>
 	<!-- 전체 사용자 수 조회 -->
 	<select id="getAttachMax" resultType="integer">
-		select max(attach_code)
+		select /*+ INDEX(attach pk_attach)*/ max(attach_code)
 		from attach
 		where
 		board_num=#{board_num}	

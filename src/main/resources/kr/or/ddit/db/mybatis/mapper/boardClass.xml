@@ -5,14 +5,14 @@
 <mapper namespace="bc">
 	<select id="getAllBc" resultType="board_classVo">
 		select
-		board_code,board_nm,board_use
+		/*+ INDEX(board_class pk_board_class)*/ board_code,board_nm,board_use
 		from board_class
 	</select>
 
 	<!-- 특정 게시글 분휴 -->
 	<select id="selectBc" resultType="board_classVo">
 		select
-		board_code,board_nm,board_use
+		/*+ INDEX(board_class pk_board_class)*/ board_code,board_nm,board_use
 		from board_class
 		where
 		board_code=#{board_code}
@@ -20,13 +20,13 @@
 
 	<!-- 전체 사용자 수 조회 -->
 	<select id="getBcCnt" resultType="integer">
-		select count(*)
+		select /*+ INDEX(board_class pk_board_class)*/ count(*)
 		from board_class
 	</select>
 	
 	<!-- 전체 사용자 수 조회 -->
 	<select id="getBcMax" resultType="integer">
-		select max(board_code)
+		select /*+ INDEX(board_class pk_board_class)*/ max(board_code)
 		from board_class
 	</select>
 

@@ -4,7 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="bd">
 	<select id="getAllBd" resultType="board_detailVo">
-		select board_num, title,
+		select /*+ INDEX(board_detail pk_board_detail)*/board_num, title,
 		content, upd_date, del_check, board_code, userid, board_num2
 		from
 		board_detail
@@ -12,7 +12,7 @@
 
 	<!-- 특정 게시글 분휴 -->
 	<select id="selectBd" resultType="board_detailVo">
-		select board_num,
+		select /*+ INDEX(board_detail pk_board_detail)*/ board_num,
 		title,content, upd_date, del_check, board_code, userid, board_num2
 		from board_detail
 		where
@@ -20,7 +20,7 @@
 	</select>
 	<!-- 특정 게시글 분휴 -->
 	<select id="selectBdByBc" resultType="board_detailVo">
-		select board_num,
+		select /*+ INDEX(board_detail pk_board_detail)*/ board_num,
 		title,content, upd_date, del_check, board_code, userid, board_num2
 		from board_detail
 		where
@@ -32,7 +32,7 @@
 	   	from 
     	( select a.*, rownum rn
     		from
-           		(select board_num, board_num2, '&lt;pre&gt;'||lpad('↳', 4*(level-1),' ') || title || '&lt;/pre&gt;' title,
+           		(select /*+ INDEX(board_detail pk_board_detail)*/ board_num, board_num2, '&lt;pre&gt;'||lpad('↳', 4*(level-1),' ') || title || '&lt;/pre&gt;' title,
            		content,upd_date,del_check,board_code
            			from board_detail
            			where board_code=#{board_code}	
@@ -45,7 +45,7 @@
 	
 	<!-- 전체 사용자 수 조회 -->
 	<select id="getBdCnt" resultType="integer">
-		select count(*)
+		select /*+ INDEX(board_detail pk_board_detail)*/ count(*)
 		from
 		board_detail
 		where board_code=#{board_code}
@@ -53,7 +53,7 @@
 	</select>
 	<!-- 전체 사용자 수 조회 -->
 	<select id="getBdMax" resultType="integer">
-		select max(board_num)
+		select /*+ INDEX(board_detail pk_board_detail)*/ max(board_num)
 		from board_detail
 	</select>
 

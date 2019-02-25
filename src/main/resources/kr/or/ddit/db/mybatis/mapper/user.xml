@@ -4,14 +4,14 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="user">
   <select id="getAllUser" resultType="userVo">
-    select	userid,usernm,pass,alias,addr1,addr2,zipcode,reg_dt,filename,realfilename 
+    select	/*+ INDEX(users pk_users)*/ userid,usernm,pass,alias,addr1,addr2,zipcode,reg_dt,filename,realfilename 
     from	users
   </select>
   
   <!-- 특정 사용자 조회(userId) selectUser(String userId)
   		query, dao(test), service(test) -->
   <select id="selectUser" resultType="userVo">
-      select	userid,usernm,pass,alias,addr1,addr2,zipcode,reg_dt,filename,realfilename
+      select	/*+ INDEX(users pk_users)*/userid,usernm,pass,alias,addr1,addr2,zipcode,reg_dt,filename,realfilename
       from	users
       where userId=#{userId}	
   </select>
@@ -21,7 +21,7 @@
    from 
        ( select a.*, rownum rn
        from
-           (select users.*
+           (select /*+ INDEX(users pk_users)*/ users.*
            from users
            order by userid) a ) a
    where rn between (#{page}-1) * #{pageSize}+1 and #{page} * #{pageSize}
@@ -30,7 +30,7 @@
   <!-- 전체 사용자 수 조회 -->
   
   <select id="getUserCnt" resultType="integer">
-  	select count(*)
+  	select /*+ INDEX(users pk_users)*/ count(*)
   	from users
   
   </select>
